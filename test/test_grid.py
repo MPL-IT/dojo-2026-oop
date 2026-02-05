@@ -1,0 +1,86 @@
+import numpy as np
+from dojo.grid import Grid1D
+import pytest
+
+
+
+def test_grid1D_initialization():
+    # arrange part
+    start = 0
+    end = 1
+    num_points = 100
+
+    # act part
+    grid = Grid1D(start, end, num_points)
+
+    # assert part
+    assert grid is not None
+    assert grid.size == num_points
+
+def test_grid1d_invalid_number_of_points():
+    # arrange part
+    start = 0
+    end = 1
+    num_points = 1
+
+    # act part
+    with pytest.raises(ValueError):
+        grid = Grid1D(start, end, num_points) # should raise ValueError because of invalid number of points
+
+def test_grid1d_invalid_start_and_end():
+    # arrange part
+    start = 2
+    end = 1
+    num_points = 5
+
+    # act part
+    with pytest.raises(ValueError):
+        grid = Grid1D(start, end, num_points) # should raise ValueError because of invalid number of points
+
+def test_grid1d_invalid_data_type_num_points():
+    # arrange part
+    start = 0
+    end = 1
+    num_points = 5.5
+
+    # act part
+    with pytest.raises(TypeError):
+        grid = Grid1D(start, end, num_points)
+
+def test_grid1d_representation():    # arrange part
+    start = 0.0
+    end = 1.0
+    num_points = 100
+
+    # act part
+    grid = Grid1D(start, end, num_points)
+    actual = str(grid)
+
+    # assert part
+    expected = f"Grid1D(start={start}, end={end}, size={num_points})"
+    assert actual == expected
+
+def test_grid1d_coords_property():
+    # arrange part
+    start = 0
+    end = 1
+    num_points = 100
+
+    # act part
+    grid = Grid1D(start, end, num_points)
+    actual = grid.coords
+
+    # assert part
+    expected = np.linspace(start, end, num_points)
+    assert np.array_equal(actual, expected)
+
+def test_grid1d_correct_coords():
+    # arrange part
+    grid1 = Grid1D(0,1,100)
+    grid2 = Grid1D(start = 0, end = 1, num_points= 100)
+    grid3 = Grid1D(1,2,150)
+
+    # assert part
+    assert grid1 == grid2 # == selben attribute
+    assert grid1 != grid3
+    assert grid1 is not grid2 # is -> selbe object
