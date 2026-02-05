@@ -20,9 +20,13 @@ class Grid1D:
     def __str__(self):
         return f"Grid1D(start={self.coords[0]}, end={self.coords[-1]}, size={self.size})"
 
-    @property # decorator func/class annotieren
+    @property  # decorator func/class annotieren
     def size(self):
         return len(self.coords)
+
+    @property
+    def spacing(self):
+        return self.coords[1] - self.coords[0]
 
     def __eq__(self, other):
         if self.coords.shape == other.coords.shape:

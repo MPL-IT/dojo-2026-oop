@@ -3,7 +3,6 @@ from dojo.grid import Grid1D
 import pytest
 
 
-
 def test_grid1D_initialization():
     # arrange part
     start = 0
@@ -17,6 +16,7 @@ def test_grid1D_initialization():
     assert grid is not None
     assert grid.size == num_points
 
+
 def test_grid1d_invalid_number_of_points():
     # arrange part
     start = 0
@@ -25,7 +25,8 @@ def test_grid1d_invalid_number_of_points():
 
     # act part
     with pytest.raises(ValueError):
-        grid = Grid1D(start, end, num_points) # should raise ValueError because of invalid number of points
+        grid = Grid1D(start, end, num_points)  # should raise ValueError because of invalid number of points
+
 
 def test_grid1d_invalid_start_and_end():
     # arrange part
@@ -35,7 +36,8 @@ def test_grid1d_invalid_start_and_end():
 
     # act part
     with pytest.raises(ValueError):
-        grid = Grid1D(start, end, num_points) # should raise ValueError because of invalid number of points
+        grid = Grid1D(start, end, num_points)  # should raise ValueError because of invalid number of points
+
 
 def test_grid1d_invalid_data_type_num_points():
     # arrange part
@@ -47,7 +49,8 @@ def test_grid1d_invalid_data_type_num_points():
     with pytest.raises(TypeError):
         grid = Grid1D(start, end, num_points)
 
-def test_grid1d_representation():    # arrange part
+
+def test_grid1d_representation():  # arrange part
     start = 0.0
     end = 1.0
     num_points = 100
@@ -59,6 +62,7 @@ def test_grid1d_representation():    # arrange part
     # assert part
     expected = f"Grid1D(start={start}, end={end}, size={num_points})"
     assert actual == expected
+
 
 def test_grid1d_coords_property():
     # arrange part
@@ -74,13 +78,29 @@ def test_grid1d_coords_property():
     expected = np.linspace(start, end, num_points)
     assert np.array_equal(actual, expected)
 
+
 def test_grid1d_correct_coords():
     # arrange part
-    grid1 = Grid1D(0,1,100)
-    grid2 = Grid1D(start = 0, end = 1, num_points= 100)
-    grid3 = Grid1D(1,2,150)
+    grid1 = Grid1D(0, 1, 100)
+    grid2 = Grid1D(start=0, end=1, num_points=100)
+    grid3 = Grid1D(1, 2, 150)
 
     # assert part
-    assert grid1 == grid2 # == selben attribute
+    assert grid1 == grid2  # == selben attribute
     assert grid1 != grid3
-    assert grid1 is not grid2 # is -> selbe object
+    assert grid1 is not grid2  # is -> selbe object
+
+
+def test_grid1d_spacing_property():
+    # arrange
+    start = 0
+    end = 1
+    number_points = 100
+
+    # act
+    grid = Grid1D(start, end, number_points)
+    actual = grid.spacing
+
+    # assert
+    expected = (end - start) / (number_points - 1)
+    assert np.isclose(actual, expected)
