@@ -1,5 +1,5 @@
 import numpy as np
-from dojo.grid import Grid1D
+from dojo.grid import Grid1D, ScalarField1D
 import pytest
 
 
@@ -104,3 +104,15 @@ def test_grid1d_spacing_property():
     # assert
     expected = (end - start) / (number_points - 1)
     assert np.isclose(actual, expected)
+
+
+def test_scalarfield1d():
+    # arrange
+    grid = Grid1D(0, 1, 100)
+    values = np.sin(grid.coords)
+
+    # act
+    scalar = ScalarField1D(grid, values)
+
+    # assert
+    assert scalar is not None

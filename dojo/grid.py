@@ -5,7 +5,7 @@ import numpy as np
 class Grid1D:
     # pass # simplest class no properties
     # constructor : __init__.py (methode zum initialisieren einer funktion)
-    def __init__(self, start, end, num_points=100): #erstes argument innerhalb von class ist immer self
+    def __init__(self, start, end, num_points=100):  # erstes argument innerhalb von class ist immer self
         if num_points < 2:
             raise ValueError("Number of points must be at least 2")
         if start >= end:
@@ -30,6 +30,11 @@ class Grid1D:
 
     def __eq__(self, other):
         if self.coords.shape == other.coords.shape:
-            return np.allclose(self.coords,other.coords)
+            return np.allclose(self.coords, other.coords)
         else:
             return False
+
+
+class ScalarField1D:
+    def __init__(self, grid, values):
+        pass
