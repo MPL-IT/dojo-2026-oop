@@ -63,3 +63,30 @@ def test_scalarfield1d_reassigngrid():
 
     #assert
     assert scalar.grid is grid2
+
+
+def test_scalarfield1d_return_value():
+    #arrange
+    grid = Grid1D(0, 1, 100)
+    values = np.linspace(0, 10, 100)
+    scalar = ScalarField1D(grid, values)
+
+    #act
+    actual = scalar.values
+
+    #assert
+    assert np.allclose(values, actual)
+
+
+def test_scalarfield1d_to_string_conversion():
+    #arrange
+    grid = Grid1D(0, 1, 100)
+    values = np.linspace(0, 10, 100)
+    scalar = ScalarField1D(grid, values)
+
+    #act
+    actual = str(scalar)
+
+    #assert
+    expected = f"ScalarField1D(grid = {str(grid)}, minval = {np.min(values)} , maxval = {np.max(values)})"
+    assert actual == expected

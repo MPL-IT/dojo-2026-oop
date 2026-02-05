@@ -1,3 +1,5 @@
+import numpy as np
+
 class ScalarField1D:
     """captures the notion of a scalar field
       on a one-dimensional domain (i.e. grid)"""
@@ -20,3 +22,9 @@ class ScalarField1D:
         self._grid = newgrid
         self._validate_attributes()
 
+    @property
+    def values(self):
+        return self._values
+
+    def __str__(self):
+        return f"ScalarField1D(grid = {self.grid}, minval = {np.min(self.values)} , maxval = {np.max(self._values)})"
