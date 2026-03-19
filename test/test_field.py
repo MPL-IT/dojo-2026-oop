@@ -90,3 +90,20 @@ def test_scalarfield1d_to_string_conversion():
     #assert
     expected = f"ScalarField1D(grid = {str(grid)}, minval = {np.min(values)} , maxval = {np.max(values)})"
     assert actual == expected
+
+def test_scalarfield1dequalvalues():
+    #arrange
+    grid = Grid1D(0, 1, 100)
+    values1 = np.linspace(0, 10, 100)
+    values2 = np.linspace(10, 20, 100)
+    scalar1 = ScalarField1D(grid, values1)
+    scalar2 = ScalarField1D(grid, values2)
+    scalar3 = ScalarField1D(grid, values1)
+
+    # #act
+    # actual = scalar1 == scalar2
+
+    #assert
+    assert (scalar1 == scalar2) is False
+    assert (scalar1 == scalar3) is True
+

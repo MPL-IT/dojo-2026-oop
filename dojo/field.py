@@ -28,3 +28,9 @@ class ScalarField1D:
 
     def __str__(self):
         return f"ScalarField1D(grid = {self.grid}, minval = {np.min(self.values)} , maxval = {np.max(self._values)})"
+
+    def __eq__(self, other):
+        if self._grid.size == other._grid.size:
+            return np.allclose(self._values, other._values)
+        else:
+            return False
