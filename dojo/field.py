@@ -1,4 +1,5 @@
 import numpy as np
+import numbers
 
 class ScalarField1D:
     """captures the notion of a scalar field
@@ -49,6 +50,20 @@ class ScalarField1D:
             else:
                 raise IncompatibleGridError
         raise IncompatibleFieldError
+
+    def __mul__(self, other):
+        if isinstance(other, ScalarField1D):
+            if self._grid == other._grid:
+                return ScalarField1D(self._grid, self._values * other._values)
+            else:
+                raise IncompatibleGridError
+        elif isinstance(other, numbers.Number):
+            return ScalarField1D(self._grid, self._values * other)
+        else:
+            raise IncompatibleFieldError
+
+    def __rmul__(self, other):
+        return self * other
 
 
 

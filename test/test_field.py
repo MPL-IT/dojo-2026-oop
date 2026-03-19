@@ -126,3 +126,25 @@ def test_Exceptions():
     #assert
     with pytest.raises(IncompatibleGridError):
         scalar1 + scalar2
+
+def test_scalarfield1dsubtract():
+    #arrange
+    grid = Grid1D(0, 1, 100)
+    values1 = np.ones(100)
+    values2 = np.ones(100)*2
+    scalar1 = ScalarField1D(grid, values1)
+    scalar2 = ScalarField1D(grid, values2)
+
+    #assert
+    assert np.allclose((scalar1 - scalar1).values, np.zeros(len(values1))) is True
+
+def test_scalarfield1dmultiply():
+    grid = Grid1D(0, 1, 100)
+    values1 = np.ones(100)
+    values2 = np.ones(100)*2
+    scalar1 = ScalarField1D(grid, values1)
+    scalar2 = ScalarField1D(grid, values2)
+
+    #assert
+    assert (scalar1 * 2 == scalar2) is True
+    assert (2 * scalar1 == scalar2) is True
