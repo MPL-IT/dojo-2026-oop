@@ -29,5 +29,4 @@ class Grid1D:
     def __eq__(self, other):
         if self.coords.shape == other.coords.shape:
             return np.allclose(self.coords, other.coords)
-        else:
-            return False
+        return False

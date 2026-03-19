@@ -95,13 +95,9 @@ def test_scalarfield1dequalvalues():
     #arrange
     grid = Grid1D(0, 1, 100)
     values1 = np.linspace(0, 10, 100)
-    values2 = np.linspace(10, 20, 100)
     scalar1 = ScalarField1D(grid, values1)
-    scalar2 = ScalarField1D(grid, values2)
+    scalar2 = ScalarField1D(grid, 3*values1)
     scalar3 = ScalarField1D(grid, values1)
-
-    # #act
-    # actual = scalar1 == scalar2
 
     #assert
     assert (scalar1 == scalar2) is False
