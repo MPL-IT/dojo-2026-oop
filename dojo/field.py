@@ -42,6 +42,16 @@ class ScalarField1D:
                 raise IncompatibleGridError
         raise IncompatibleFieldError
 
+    def __sub__(self, other):
+        if isinstance(other, ScalarField1D):
+            if self._grid == other._grid:
+                return ScalarField1D(self._grid, self._values - other._values)
+            else:
+                raise IncompatibleGridError
+        raise IncompatibleFieldError
+
+
+
 class IncompatibleFieldError(Exception):
     pass
 
