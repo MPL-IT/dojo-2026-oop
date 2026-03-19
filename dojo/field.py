@@ -33,3 +33,11 @@ class ScalarField1D:
         if self._grid == other._grid:
             return np.allclose(self._values, other._values)
         return False
+
+    def __add__(self, other):
+        if isinstance(other, ScalarField1D):
+            if self._grid == other._grid:
+                return ScalarField1D(self._grid, self._values + other._values)
+            else:
+                raise Exception("Grids are not equal.")
+        raise Exception("Addition not possible. Objects don't belong to the same class.")

@@ -103,3 +103,13 @@ def test_scalarfield1dequalvalues():
     assert (scalar1 == scalar2) is False
     assert (scalar1 == scalar3) is True
 
+def test_scalarfield1dadd():
+    #arrange
+    grid = Grid1D(0, 1, 100)
+    values1 = np.ones(100)
+    values2 = np.ones(100)*2
+    scalar1 = ScalarField1D(grid, values1)
+    scalar2 = ScalarField1D(grid, values2)
+
+    #assert
+    assert scalar1 + scalar1 == scalar2
