@@ -39,5 +39,12 @@ class ScalarField1D:
             if self._grid == other._grid:
                 return ScalarField1D(self._grid, self._values + other._values)
             else:
-                raise Exception("Grids are not equal.")
-        raise Exception("Addition not possible. Objects don't belong to the same class.")
+                raise IncompatibleGridError
+        raise IncompatibleFieldError
+
+class IncompatibleFieldError(Exception):
+    pass
+
+class IncompatibleGridError(Exception):
+    pass
+

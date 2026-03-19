@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
 
-from dojo.field import ScalarField1D
+from dojo.field import ScalarField1D, IncompatibleGridError
 from dojo.grid import Grid1D
 
 
@@ -113,3 +113,16 @@ def test_scalarfield1dadd():
 
     #assert
     assert scalar1 + scalar1 == scalar2
+
+def test_Exceptions():
+    #arrange
+    grid = Grid1D(0,1,100)
+    grid2 = Grid1D(0,1,99)
+    values1 = np.ones(100)
+    values2 = np.ones(99)
+    scalar1 = ScalarField1D(grid, values1)
+    scalar2 = ScalarField1D(grid2, values2)
+
+    #assert
+    with pytest.raises(IncompatibleGridError):
+        scalar1 + scalar2
