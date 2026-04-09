@@ -1,5 +1,5 @@
 import numpy as np
-from dojo.grid import Grid1D
+from dojo.grid import Grid1D, Grid, Grid2D
 import pytest
 
 
@@ -60,7 +60,7 @@ def test_grid1d_representation():  # arrange part
     actual = str(grid)
 
     # assert part
-    expected = f"Grid1D(start={start}, end={end}, size={num_points})"
+    expected = f"Grid1D(start={(start,)}, end={(end,)}, size={num_points})"
     assert actual == expected
 
 
@@ -75,7 +75,7 @@ def test_grid1d_coords_property():
     actual = grid.coords
 
     # assert part
-    expected = np.linspace(start, end, num_points)
+    expected = (np.linspace(start, end, num_points),)
     assert np.array_equal(actual, expected)
 
 
@@ -104,3 +104,46 @@ def test_grid1d_spacing_property():
     # assert
     expected = (end - start) / (number_points - 1)
     assert np.isclose(actual, expected)
+
+
+def test_grid_cannotbeinstantiated():
+    with pytest.raises(Exception):
+        grid = Grid()
+
+
+def test_grid1D_isagrid():
+    # arrange
+    grid = Grid1D(0, 100, 100)
+
+    # assert
+    assert isinstance(grid, Grid)
+
+
+def test_grid2D_initialization():
+    # arrange part
+    start = (0, 0)
+    end = (1, 1)
+    num_points = (100, 100)
+
+    # act part
+    grid = Grid2D(start, end, num_points)
+
+    # assert part
+    assert grid is not None
+    assert grid.size == num_points[0] * num_points[1]
+
+
+def test_grid2d_coords_property():
+    # arrange part
+    start = (0, 0)
+    end = (1, 2)
+    num_points = (2, 3)
+
+    # act part
+    grid = Grid2D(start, end, num_points)
+    actual = grid.coords
+
+    # assert part
+    expected = (np.array([[0., 1.], [0., 1.], [0., 1.]]),
+                np.array([[0., 0.], [1., 1.], [2., 2.]]))
+    assert np.array_equal(actual, expected)
